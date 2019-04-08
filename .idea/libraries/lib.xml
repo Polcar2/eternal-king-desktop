@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/jfr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/resources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/jsse.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/plugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/charsets.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/jce.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/management-agent.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/jfxswt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/javaws.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/artifacts/gamefx/bundles/gamefx/runtime/lib/rt.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
