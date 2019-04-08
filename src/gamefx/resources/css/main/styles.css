@@ -1,0 +1,27 @@
+Button {
+    -fx-background-color: #58f;
+    -fx-text-fill: #fff;
+}
+
+#sliderrel:disabled, #sliderarm:disabled, #slidersoc:disabled {
+    -fx-opacity: 1.0 ;
+}
+
+#sliderrel:disabled .thumb, #sliderarm:disabled .thumb, #slidersoc:disabled .thumb {
+    -fx-pref-height: 20px;
+    -fx-pref-width: 20px;
+}
+
+#sliderrel:disabled .track, #sliderarm:disabled .track, #slidersoc:disabled .track {
+    -fx-pref-height: 15px;
+    -fx-background-radius: 8px;
+}
+/*#slider1:disabled .thumb {*/
+    /*-fx-background-color: #fff;*/
+/*}*/
+
+/*#slider1:disabled .track {*/
+    /*-fx-background-color: #000;*/
+    /*-fx-pref-height: 13px;*/
+    /*-fx-background-radius: 7px;*/
+/*}*/

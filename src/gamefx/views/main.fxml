@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#timerSkip" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamefx.controllers.MainController">
+   <children>
+      <Pane layoutX="14.0" layoutY="106.0" prefHeight="417.0" prefWidth="874.0" style="-fx-background-color: rgb(220,220,220);">
+         <children>
+            <Label fx:id="labelquest" alignment="TOP_LEFT" layoutX="15.0" layoutY="14.0" prefHeight="390.0" prefWidth="844.0" text="Label" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+         </children></Pane>
+      <Slider fx:id="sliderrel" blockIncrement="1.0" disable="true" layoutX="975.0" layoutY="141.0" prefHeight="14.0" prefWidth="235.0" />
+      <Slider fx:id="sliderarm" blockIncrement="1.0" disable="true" layoutX="974.0" layoutY="194.0" prefHeight="14.0" prefWidth="235.0" />
+      <Slider fx:id="slidersoc" blockIncrement="1.0" disable="true" layoutX="974.0" layoutY="244.0" prefHeight="14.0" prefWidth="235.0" />
+      <Button fx:id="btnselect1" disable="true" layoutX="14.0" layoutY="539.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="874.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="btnselect2" disable="true" layoutX="14.0" layoutY="621.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="874.0">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Pane layoutX="14.0" layoutY="13.0" prefHeight="52.0" prefWidth="1255.0" style="-fx-background-color: rgb(230,230,230);">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="ДЕНЬ:" />
+            <Label layoutX="209.0" layoutY="14.0" text="МЕСЯЦ:" />
+            <Label layoutX="407.0" layoutY="14.0" text="ГОД:" />
+            <Label fx:id="labday" layoutX="61.0" layoutY="14.0" />
+            <Label fx:id="labmonth" layoutX="266.0" layoutY="14.0" />
+            <Label fx:id="labyear" layoutX="449.0" layoutY="14.0" />
+            <Label alignment="CENTER" layoutX="648.0" layoutY="14.0" prefHeight="17.0" prefWidth="590.0" text="Label" />
+         </children>
+      </Pane>
+      <Label fx:id="labelname" layoutX="28.0" layoutY="80.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Button layoutX="1032.0" layoutY="477.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Сохранить" />
+      <Button layoutX="1032.0" layoutY="514.0" mnemonicParsing="false" onAction="#timerCancel" prefHeight="25.0" prefWidth="95.0" text="Загрузить" />
+      <Button layoutX="1032.0" layoutY="551.0" mnemonicParsing="false" onAction="#escape" prefHeight="25.0" prefWidth="95.0" text="Выйти" />
+      <Label layoutX="905.0" layoutY="143.0" text="Религия" textFill="#824d03">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="14.0" />
+         </font></Label>
+      <Label layoutX="912.0" layoutY="194.0" text="Армия" textFill="#824d03">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="14.0" />
+         </font></Label>
+      <Label layoutX="905.0" layoutY="244.0" text="Социум" textFill="#824d03">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="14.0" />
+         </font></Label>
+      <Label fx:id="labelrel" layoutX="1227.0" layoutY="142.0" text="0" />
+      <Label fx:id="labelarm" layoutX="1226.0" layoutY="195.0" text="0" />
+      <Label fx:id="labelsoc" layoutX="1226.0" layoutY="245.0" text="0" />
+      <Button layoutX="938.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="282.0" text="История династии" />
+      <Region layoutX="952.0" layoutY="305.0" prefHeight="126.0" prefWidth="255.0" style="-fx-background-color: #eee;">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="11.86" radius="6.172499999999999" width="14.83" />
+         </effect></Region>
+      <Label layoutX="1059.0" layoutY="307.0" text="Казна" textFill="#ffa304">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="14.0" />
+         </font></Label>
+   </children>
+</Pane>
