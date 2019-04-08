@@ -15,8 +15,8 @@ public class Main extends Application {
     private static Scene scene;
     private static String CSS = "styles.css";
 
-    public static int size_X = 1270;
-    public static int size_Y = 710;
+    public static int size_X = 1280;
+    public static int size_Y = 720;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -25,7 +25,7 @@ public class Main extends Application {
         pane = root;
         primaryStage.setTitle("Eternal King v0.1");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, size_X, size_Y));
+        primaryStage.setScene(new Scene(root, size_X-10, size_Y-10));
         setCSS();
         primaryStage.show();
     }
@@ -37,8 +37,8 @@ public class Main extends Application {
             loader.setLocation(Controller.class.getResource(path));
             pane = loader.load();}
         catch (IOException ex) {System.out.println("SwitchScene Error");}
-        if(path.contains("Active")){scene=new Scene(pane,size_X+10,size_Y+10);}
-        else{scene=new Scene(pane,size_X+10,size_Y+10);}
+        if(path.contains("Active")){scene=new Scene(pane,size_X,size_Y);}
+        else{scene=new Scene(pane,size_X,size_Y);}
         stage.setScene(scene);
         setCSS();
     }
@@ -49,8 +49,8 @@ public class Main extends Application {
             loader.setLocation(Controller.class.getResource(path));
             pane = loader.load();}
         catch (IOException ex) {System.out.println("SwitchScene Error");}
-        if(path.contains("Active")){scene=new Scene(pane,size_X+10,size_Y+10);}
-        else{scene=new Scene(pane,size_X+10,size_Y+10);}
+        if(path.contains("Active")){scene=new Scene(pane,size_X,size_Y);}
+        else{scene=new Scene(pane,size_X,size_Y);}
         stage.setScene(scene);
         setCSS(CSSlocal);
     }

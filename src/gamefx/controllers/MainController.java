@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import gamefx.models.Quest.*;
@@ -124,23 +125,23 @@ public class MainController extends Controller {
         labelarm.setText(String.valueOf((int)Controller.ARMY));
         labelsoc.setText(String.valueOf((int)Controller.SOCIETY));
 
-        String masInput[] = Quest.getEvent(2);
-
-
-        if (masInput[0].equals("DEFAULT")) {
-            labelname.setText(Controller.ADVISOR);
-        } else {
-            labelname.setText(masInput[0]);
-        }
-        outTextQuest(masInput[1]);
-        btnselect1.setText(masInput[2]);
-        btnselect2.setText(masInput[3]);
+//        String masInput[] = Quest.getEvent(2);
+//
+//
+//        if (masInput[0].equals("DEFAULT")) {
+//            labelname.setText(Controller.ADVISOR);
+//        } else {
+//            labelname.setText(masInput[0]);
+//        }
+//        outTextQuest(masInput[1]);
+//        btnselect1.setText(masInput[2]);
+//        btnselect2.setText(masInput[3]);
 
 
         startGame();
     }
 
-    public void dayIterationBegin() {
+    public void dayIterationBegin() throws InterruptedException {
 
         if (Controller.DAY == 30) {
             Controller.MONTH += 1;
@@ -156,7 +157,7 @@ public class MainController extends Controller {
 
         }
         else {
-
+            bodyInterface();
         }
 
     }
@@ -179,7 +180,7 @@ public class MainController extends Controller {
                     if (quests[j] == quests[i]) {
                         flag = true;
                         break;
-                    } else if (toInt(Quest.getEvent(quests[i])[10])==2) {
+                    } else if (toInt(Quest.getEvent(quests[i])[10])>1) {
                         flag = true;
                         break;
                     } else {
@@ -200,10 +201,56 @@ public class MainController extends Controller {
         return false;
     }
 
-    public void startGame() {
+    public void bodyInterface() throws InterruptedException {
+        String masInput[] = Quest.getEvent(quests[Controller.DAY]);
+
+        // ДНИ, МЕСЯЦЫ, ГОДА
+
+        labday.setText(String.valueOf(Controller.DAY));
+        labmonth.setText(String.valueOf(Controller.MONTH));
+        labyear.setText(String.valueOf(Controller.YEAR));
+
+        // СОВЕТНИК
+
+        if (masInput[0].equals("DEFAULT")) {
+            advisor = Controller.ADVISOR;
+        } else {
+            advisor = masInput[0];
+        }
+        labelname.setText(advisor);
+
+        // ОПИСАНИЕ
+
+        outTextQuest(masInput[1]);
+
+        // ВЫБОРЫ
+
+        select1 = masInput[2];
+        btnselect1.setText(select1);
+        select2 = masInput[3];
+        btnselect2.setText(select2);
+
+        param1 = masInput[4];
+        param2 = masInput[5];
+
+        effect1 = toInt(masInput[6]);
+        effect1 = toInt(masInput[7]);
+
+        uniqkey = masInput[8];
+
+        selectactiv = masInput[9];
+
+        order = toInt(masInput[10]);
+
+    }
+
+    public void actionButton(ActionEvent actionEvent) {
+        System.out.println(((Control) actionEvent.getSource()).getId());
+    }
+
+    public void startGame() throws InterruptedException {
         dayIterationBegin();
 
-        dayIterationEnd();
     }
 
     public void outTextQuest(String str) throws InterruptedException {
