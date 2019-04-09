@@ -39,7 +39,7 @@ public class MainController extends Controller {
     @FXML public Label labmonth;
     @FXML public Label labyear;
 
-    public Timer timer = new Timer();
+    public Timer timer;
 
     private String advisor; // советник
     private String description; // описание
@@ -67,46 +67,51 @@ public class MainController extends Controller {
         changeView("menu");
     }
 
-    public void upReligion(int arg) {
+    public void setReligion(int arg) {
         int REL = (int) Controller.RELIGION;
-        arg = ((arg+REL)>100)?(100-REL):arg;
+        if (arg>0) {
+            arg = ((arg + REL) > 100) ? (100 - REL) : arg;
+//            Animation.animateTo(REL,REL+arg,sliderrel,labelrel);
+//            Controller.RELIGION+=arg;
+        } else if (arg<0) {
+            arg = ((REL+arg)<0)?REL:arg;
+//            Animation.animateTo(REL,REL-arg,sliderrel,labelrel);
+//            Controller.RELIGION-=arg;
+        }
         Animation.animateTo(REL,REL+arg,sliderrel,labelrel);
         Controller.RELIGION+=arg;
     }
 
-    public void downReligion(int arg) {
-        int REL = (int) Controller.RELIGION;
-        arg = ((REL-arg)<0)?REL:arg;
-        Animation.animateTo(REL,REL-arg,sliderrel,labelrel);
-        Controller.RELIGION-=arg;
-    }
 
-    public void upArmy(int arg) {
+    public void setArmy(int arg) {
         int ARM = (int) Controller.ARMY;
-        arg = ((arg+ARM)>100)?(100-ARM):arg;
-        Animation.animateTo(ARM,ARM+arg,sliderarm,labelarm);
-        Controller.ARMY+=arg;
+        if (arg>0) {
+            arg = ((arg + ARM) > 100) ? (100 - ARM) : arg;
+//            Animation.animateTo(ARM, ARM + arg, sliderarm, labelarm);
+//            Controller.ARMY += arg;
+        } else if (arg<0) {
+            arg = ((ARM+arg)<0)?ARM:arg;
+//            Animation.animateTo(ARM,ARM-arg,sliderarm,labelarm);
+//            Controller.ARMY-=arg;
+        }
+        Animation.animateTo(ARM, ARM + arg, sliderarm, labelarm);
+        Controller.ARMY += arg;
     }
 
-    public void downArmy(int arg) {
-        int ARM = (int) Controller.ARMY;
-        arg = ((ARM-arg)<0)?ARM:arg;
-        Animation.animateTo(ARM,ARM-arg,sliderarm,labelarm);
-        Controller.ARMY-=arg;
-    }
 
-    public void upSociety(int arg) {
+    public void setSociety(int arg) {
         int SOC = (int) Controller.SOCIETY;
-        arg = ((arg+SOC)>100)?(100-SOC):arg;
-        Animation.animateTo(SOC,SOC+arg,slidersoc,labelsoc);
-        Controller.SOCIETY+=arg;
-    }
-
-    public void downSociety(int arg) {
-        int SOC = (int) Controller.SOCIETY;
-        arg = ((SOC-arg)<0)?SOC:arg;
-        Animation.animateTo(SOC,SOC-arg,slidersoc,labelsoc);
-        Controller.SOCIETY-=arg;
+        if (arg>0) {
+            arg = ((arg + SOC) > 100) ? (100 - SOC) : arg;
+//            Animation.animateTo(SOC, SOC + arg, slidersoc, labelsoc);
+//            Controller.SOCIETY += arg;
+        } else if (arg<0) {
+            arg = ((SOC+arg)<0)?SOC:arg;
+//            Animation.animateTo(SOC,SOC-arg,slidersoc,labelsoc);
+//            Controller.SOCIETY-=arg;
+        }
+        Animation.animateTo(SOC, SOC + arg, slidersoc, labelsoc);
+        Controller.SOCIETY += arg;
     }
 
     public void initGame() throws InterruptedException {
@@ -143,6 +148,9 @@ public class MainController extends Controller {
 
     public void dayIterationBegin() throws InterruptedException {
 
+        btnselect1.setDisable(true);
+        btnselect2.setDisable(true);
+
         if (Controller.DAY == 30) {
             Controller.MONTH += 1;
             Controller.DAY = 0;
@@ -157,7 +165,8 @@ public class MainController extends Controller {
 
         }
         else {
-            bodyInterface();
+            bodyInterface(Quest.getEvent(quests[Controller.DAY]));
+//            bodyInterface(Quest.getEvent(1));
         }
 
     }
@@ -201,8 +210,8 @@ public class MainController extends Controller {
         return false;
     }
 
-    public void bodyInterface() throws InterruptedException {
-        String masInput[] = Quest.getEvent(quests[Controller.DAY]);
+    public void bodyInterface(String[] masInput) throws InterruptedException {
+//        String masInput[] = Quest.getEvent(quests[Controller.DAY]);
 
         // ДНИ, МЕСЯЦЫ, ГОДА
 
@@ -221,6 +230,7 @@ public class MainController extends Controller {
 
         // ОПИСАНИЕ
 
+//        System.out.println(masInput[1]);
         outTextQuest(masInput[1]);
 
         // ВЫБОРЫ
@@ -234,7 +244,7 @@ public class MainController extends Controller {
         param2 = masInput[5];
 
         effect1 = toInt(masInput[6]);
-        effect1 = toInt(masInput[7]);
+        effect2 = toInt(masInput[7]);
 
         uniqkey = masInput[8];
 
@@ -244,8 +254,92 @@ public class MainController extends Controller {
 
     }
 
-    public void actionButton(ActionEvent actionEvent) {
-        System.out.println(((Control) actionEvent.getSource()).getId());
+    public void actionButton(ActionEvent actionEvent) throws InterruptedException {
+//        System.out.println(((Control) actionEvent.getSource()).getId());
+        if (((Control) actionEvent.getSource()).getId().equals("btnselect1")) {
+//            System.out.println("Нажата кнопка 1");
+            System.out.println(param1+" "+param2+" | "+effect1+" "+effect2);
+            if (param1.equals(param2)) {
+                if (param1.equals("SOCIETY")) {
+                    setSociety(effect1);
+                } else if (param1.equals("RELIGION")) {
+                    setReligion(effect1);
+                } else if (param1.equals("ARMY")) {
+                    setArmy(effect1);
+                }
+            } else {
+                if (param1.equals("SOCIETY")) {
+                    setSociety(effect1);
+                }
+                else if (param1.equals("RELIGION")) {
+                    setReligion(effect1);
+                }
+                else if (param1.equals("ARMY")) {
+                    setArmy(effect1);
+                }
+                if (param2.equals("SOCIETY")) {
+                    setSociety(effect2);
+                }
+                else if (param2.equals("RELIGION")) {
+                    setReligion(effect2);
+                }
+                else if (param2.equals("ARMY")) {
+                    setArmy(effect2);
+                }
+            }
+        } else {
+//            System.out.println("Нажата кнопка 2");
+            System.out.println(param1+" "+param2+" | "+effect1+" "+effect2);
+            if (param1.equals(param2)) {
+                if (param1.equals("SOCIETY")) {
+                    setSociety(effect2);
+                } else if (param1.equals("RELIGION")) {
+                    setReligion(effect2);
+                } else if (param1.equals("ARMY")) {
+                    setArmy(effect2);
+                }
+            } else {
+                int eff1 = -effect1;
+                int eff2 = -effect2;
+                if (param1.equals("SOCIETY")) {
+                    setSociety(eff1);
+                }
+                else if (param1.equals("RELIGION")) {
+                    setReligion(eff1);
+                }
+                else if (param1.equals("ARMY")) {
+                    setArmy(eff1);
+                }
+                if (param2.equals("SOCIETY")) {
+                    setSociety(eff2);
+                }
+                else if (param2.equals("RELIGION")) {
+                    setReligion(eff2);
+                }
+                else if (param2.equals("ARMY")) {
+                    setArmy(eff2);
+                }
+            }
+        }
+
+        if (!uniqkey.equals("NULL")) {
+            if (!selectactiv.equals("NULL")) {
+                if ((((Control) actionEvent.getSource()).getId().equals("btnselect1")) && (toInt(selectactiv) == 1)) {
+                    if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
+                        bodyInterface(Quest.getEventUnique(uniqkey, order));
+                    }
+                } else if ((((Control) actionEvent.getSource()).getId().equals("btnselect2")) && (toInt(selectactiv) == 2)) {
+                    if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
+                        bodyInterface(Quest.getEventUnique(uniqkey, order));
+                    }
+                }
+            } else {
+                startGame();
+            }
+        } else {
+            startGame();
+        }
+
     }
 
     public void startGame() throws InterruptedException {
@@ -254,7 +348,6 @@ public class MainController extends Controller {
     }
 
     public void outTextQuest(String str) throws InterruptedException {
-
         while (true) {
             if (str.contains("$KING")) {
                str = str.replace("$KING", Controller.KING_NAME);
@@ -267,12 +360,17 @@ public class MainController extends Controller {
         }
 //        labelquest.setText(str);
         description = str;
+//        System.out.println("DESCR: "+description);
+//        System.out.println("TIMER: "+timer);
+
+        timer = new Timer();
         TimerTask task = new TimerTask()
         {
             String sum = "";
             int i = 0;
             public void run()
             {
+//                System.out.println("i: "+i+"  |  sum: "+sum);
                 Platform.runLater(() -> {
                     if (description.length()==i) {
                         timerCancel();
@@ -289,9 +387,35 @@ public class MainController extends Controller {
 
     }
 
+    public void timerStart() {
+        timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            String sum = "";
+            int i = 0;
+            public void run()
+            {
+                Platform.runLater(() -> {
+                    System.out.println("i: "+i);
+                    if (i<10) {
+                        i++;
+                    } else {
+                        timerCancel();
+                    }
+                });
+            }
+
+        };
+        System.out.println("STARTT");
+        timer.schedule(task, 0, 30);
+    }
 
     public void timerCancel() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+            timer = null;
+        }
         btnselect1.setDisable(false);
         btnselect2.setDisable(false);
     }

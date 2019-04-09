@@ -1,5 +1,8 @@
 package gamefx.models;
 
+import gamefx.Controller;
+import gamefx.Main;
+
 public class Quest {
 
     private static String CUSTOM_EVENTS[][] = new String[][] {
@@ -100,6 +103,24 @@ public class Quest {
 
     public static int getAmount() {
         return CUSTOM_EVENTS.length;
+    }
+
+    public static String[] getEventUnique(String uniq, int order) {
+        order++;
+        int k = -1;
+        for (int i=0; i<=CUSTOM_EVENTS.length-1;i++) {
+            if (CUSTOM_EVENTS[i][8].equals(uniq)) {
+                if (Controller.toInt(CUSTOM_EVENTS[i][10])==order) {
+                    k=i;
+                }
+            }
+        }
+        if (k>=0) {
+            return CUSTOM_EVENTS[k];
+        } else {
+            String[] knull = new String[] {"NULL"};
+            return knull;
+        }
     }
 
 }

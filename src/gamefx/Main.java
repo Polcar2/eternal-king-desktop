@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static Parent pane;
-    private static Stage stage;
+    public static Stage stage;
     private static Scene scene;
     private static String CSS = "styles.css";
 

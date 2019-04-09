@@ -68,4 +68,17 @@ public class Animation {
         timeline.play();
     }
 
+    public static void validateAnimation(Label label) {
+        Duration animationDuration = new Duration(1000);
+
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.ZERO, new KeyValue(label.textFillProperty(), Color.web("#ee0033"))),
+
+                new KeyFrame(animationDuration, new KeyValue(label.textFillProperty(), Color.web("#000")))
+        );
+
+        timeline.play();
+    }
+
 }

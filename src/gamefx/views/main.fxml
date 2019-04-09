@@ -61,7 +61,7 @@
       <Label fx:id="labelrel" layoutX="1227.0" layoutY="142.0" text="0" />
       <Label fx:id="labelarm" layoutX="1226.0" layoutY="195.0" text="0" />
       <Label fx:id="labelsoc" layoutX="1226.0" layoutY="245.0" text="0" />
-      <Button layoutX="938.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="282.0" text="История династии" />
+      <Button layoutX="938.0" layoutY="87.0" mnemonicParsing="false" onAction="#timerStart" prefHeight="25.0" prefWidth="282.0" text="История династии" />
       <Region layoutX="952.0" layoutY="305.0" prefHeight="126.0" prefWidth="255.0" style="-fx-background-color: #eee;">
          <effect>
             <DropShadow blurType="GAUSSIAN" height="11.86" radius="6.172499999999999" width="14.83" />

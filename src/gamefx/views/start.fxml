@@ -17,25 +17,23 @@
       <TextField fx:id="editking" layoutX="597.0" layoutY="221.0" />
       <TextField fx:id="editdinasty" layoutX="597.0" layoutY="279.0" />
       <TextField fx:id="editkingdom" layoutX="597.0" layoutY="335.0" />
-      <MenuButton layoutX="597.0" layoutY="392.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0">
+      <MenuButton fx:id="menu" layoutX="597.0" layoutY="392.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0">
         <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </MenuButton>
-      <Label layoutX="494.0" layoutY="225.0" text="Имя короля">
+      <Label fx:id="labking" layoutX="494.0" layoutY="225.0" text="Имя короля">
          <font>
             <Font name="Franklin Gothic Heavy" size="15.0" />
          </font></Label>
-      <Label layoutX="510.0" layoutY="283.0" text="Династия">
+      <Label fx:id="labdinasty" layoutX="510.0" layoutY="283.0" text="Династия">
          <font>
             <Font name="Franklin Gothic Heavy" size="15.0" />
          </font></Label>
-      <Label layoutX="413.0" layoutY="339.0" text="Название королевства">
+      <Label fx:id="labkingdom" layoutX="413.0" layoutY="339.0" text="Название королевства">
          <font>
             <Font name="Franklin Gothic Heavy" size="15.0" />
          </font></Label>
-      <Label layoutX="472.0" layoutY="398.0" text="Аватар короля">
+      <Label fx:id="labavatar" layoutX="472.0" layoutY="398.0" text="Аватар короля">
          <font>
             <Font name="Franklin Gothic Heavy" size="15.0" />
          </font></Label>

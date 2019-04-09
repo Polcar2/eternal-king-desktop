@@ -9,3 +9,12 @@ Region:hover {
     -fx-border-radius: 5px;
     -fx-cursor: hand;
 }
+
+.menu-item:focused {
+    -fx-accent: transparent;
+    -fx-selection-bar: transparent;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: -fx-text-base-color;
+}
