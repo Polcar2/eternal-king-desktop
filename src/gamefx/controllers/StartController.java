@@ -1,6 +1,7 @@
 package gamefx.controllers;
 
 import gamefx.Controller;
+import gamefx.GLOBAL;
 import gamefx.Main;
 import gamefx.models.Animation;
 import gamefx.models.Names;
@@ -28,6 +29,7 @@ public class StartController extends Controller {
     public Label labking;
     public Label labkingdom;
     public Label labavatar;
+    public CheckBox checkbox;
 
 
     public void initialize() {
@@ -42,6 +44,10 @@ public class StartController extends Controller {
 
     public void startGame() {
         if (validate()) {
+            Controller.KING_NAME=editking.textProperty().getValue();
+            Controller.KINGDOM_NAME=editkingdom.textProperty().getValue();
+            Controller.DINASTY=editdinasty.textProperty().getValue();
+            if (checkbox.isSelected()) { GLOBAL.TUTORIAL=false; } else { GLOBAL.TUTORIAL=true; }
             changeView("main", "main/styles.css");
         } else {
 

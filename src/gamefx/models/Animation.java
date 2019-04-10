@@ -81,4 +81,46 @@ public class Animation {
         timeline.play();
     }
 
+    public static void blackScreenAnimation(Region region) {
+        Duration animationDuration = new Duration(1000);
+
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.ZERO, new KeyValue(region.opacityProperty(), 0)),
+
+                new KeyFrame(animationDuration, new KeyValue(region.opacityProperty(), 0.5))
+        );
+
+        timeline.play();
+    }
+
+    public static void whiteScreenAnimation(Region region) {
+        Duration animationDuration = new Duration(2000);
+
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.ZERO, new KeyValue(region.opacityProperty(), 0)),
+
+                new KeyFrame(animationDuration, new KeyValue(region.opacityProperty(), 1))
+        );
+
+        timeline.play();
+    }
+
+    public static void reverseWhiteScreenAnimation(Region region) {
+        Duration animationDuration = new Duration(2000);
+
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.ZERO, new KeyValue(region.opacityProperty(), 1)),
+
+                new KeyFrame(animationDuration, new KeyValue(region.opacityProperty(), 0))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(event -> {
+            //
+        });
+    }
+
 }

@@ -3,9 +3,7 @@ package gamefx.controllers;
 import gamefx.Controller;
 import gamefx.GLOBAL;
 import gamefx.Main;
-import gamefx.models.Animation;
-import gamefx.models.Quest;
-import gamefx.models.TimerModel;
+import gamefx.models.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -16,6 +14,8 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import gamefx.models.Quest.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.util.Timer;
@@ -38,8 +38,26 @@ public class MainController extends Controller {
     @FXML public Label labday;
     @FXML public Label labmonth;
     @FXML public Label labyear;
+    @FXML public Region blackscreen;
+    @FXML public Region blackrel;
+    @FXML public Region blackarm;
+    @FXML public Region blacksoc;
+    @FXML public Pane panequest;
+    @FXML public Label namerel;
+    @FXML public Label namearm;
+    @FXML public Label namesoc;
 
     public Timer timer;
+
+    public int iner_tutorial = 0;
+    enum Mode {
+        STORY,
+        TUTORIAL,
+        NONE,
+        SKIP
+    }
+
+    public Mode mode = Mode.NONE;
 
     private String advisor; // советник
     private String description; // описание
@@ -142,8 +160,18 @@ public class MainController extends Controller {
 //        btnselect1.setText(masInput[2]);
 //        btnselect2.setText(masInput[3]);
 
-
-        startGame();
+        if (GLOBAL.TUTORIAL) {
+            mode = Mode.TUTORIAL;
+            tutorialGame();
+        } else {
+            startGame();
+            Dialog dialog = new Dialog();
+            try {
+                dialog.create();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void dayIterationBegin() throws InterruptedException {
@@ -177,7 +205,7 @@ public class MainController extends Controller {
 
     public void RandomizeEvent() {
 
-        quests = new int[8];
+        quests = new int[15];
 
         boolean flag;
         for (int i=0; i<=quests.length-1; i++) {
@@ -256,88 +284,96 @@ public class MainController extends Controller {
 
     public void actionButton(ActionEvent actionEvent) throws InterruptedException {
 //        System.out.println(((Control) actionEvent.getSource()).getId());
-        if (((Control) actionEvent.getSource()).getId().equals("btnselect1")) {
-//            System.out.println("Нажата кнопка 1");
-            System.out.println(param1+" "+param2+" | "+effect1+" "+effect2);
-            if (param1.equals(param2)) {
-                if (param1.equals("SOCIETY")) {
-                    setSociety(effect1);
-                } else if (param1.equals("RELIGION")) {
-                    setReligion(effect1);
-                } else if (param1.equals("ARMY")) {
-                    setArmy(effect1);
-                }
-            } else {
-                if (param1.equals("SOCIETY")) {
-                    setSociety(effect1);
-                }
-                else if (param1.equals("RELIGION")) {
-                    setReligion(effect1);
-                }
-                else if (param1.equals("ARMY")) {
-                    setArmy(effect1);
-                }
-                if (param2.equals("SOCIETY")) {
-                    setSociety(effect2);
-                }
-                else if (param2.equals("RELIGION")) {
-                    setReligion(effect2);
-                }
-                else if (param2.equals("ARMY")) {
-                    setArmy(effect2);
-                }
-            }
-        } else {
-//            System.out.println("Нажата кнопка 2");
-            System.out.println(param1+" "+param2+" | "+effect1+" "+effect2);
-            if (param1.equals(param2)) {
-                if (param1.equals("SOCIETY")) {
-                    setSociety(effect2);
-                } else if (param1.equals("RELIGION")) {
-                    setReligion(effect2);
-                } else if (param1.equals("ARMY")) {
-                    setArmy(effect2);
-                }
-            } else {
-                int eff1 = -effect1;
-                int eff2 = -effect2;
-                if (param1.equals("SOCIETY")) {
-                    setSociety(eff1);
-                }
-                else if (param1.equals("RELIGION")) {
-                    setReligion(eff1);
-                }
-                else if (param1.equals("ARMY")) {
-                    setArmy(eff1);
-                }
-                if (param2.equals("SOCIETY")) {
-                    setSociety(eff2);
-                }
-                else if (param2.equals("RELIGION")) {
-                    setReligion(eff2);
-                }
-                else if (param2.equals("ARMY")) {
-                    setArmy(eff2);
-                }
-            }
-        }
 
-        if (!uniqkey.equals("NULL")) {
-            if (!selectactiv.equals("NULL")) {
-                if ((((Control) actionEvent.getSource()).getId().equals("btnselect1")) && (toInt(selectactiv) == 1)) {
-                    if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
-                        bodyInterface(Quest.getEventUnique(uniqkey, order));
+        if (mode == Mode.TUTORIAL) {
+
+            tutorialGame();
+        } else if (mode == Mode.SKIP) {
+            mode = Mode.NONE;
+            blackscreen.setVisible(false);
+            blackrel.setVisible(false);
+            blackarm.setVisible(false);
+            blacksoc.setVisible(false);
+            startGame();
+        } else if (mode == Mode.NONE) {
+            if (((Control) actionEvent.getSource()).getId().equals("btnselect1")) {
+//            System.out.println("Нажата кнопка 1");
+                System.out.println(param1 + " " + param2 + " | " + effect1 + " " + effect2);
+                if (param1.equals(param2)) {
+                    if (param1.equals("SOCIETY")) {
+                        setSociety(effect1);
+                    } else if (param1.equals("RELIGION")) {
+                        setReligion(effect1);
+                    } else if (param1.equals("ARMY")) {
+                        setArmy(effect1);
                     }
-                } else if ((((Control) actionEvent.getSource()).getId().equals("btnselect2")) && (toInt(selectactiv) == 2)) {
-                    if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
-                        bodyInterface(Quest.getEventUnique(uniqkey, order));
+                } else {
+                    if (param1.equals("SOCIETY")) {
+                        setSociety(effect1);
+                    } else if (param1.equals("RELIGION")) {
+                        setReligion(effect1);
+                    } else if (param1.equals("ARMY")) {
+                        setArmy(effect1);
                     }
+                    if (param2.equals("SOCIETY")) {
+                        setSociety(effect2);
+                    } else if (param2.equals("RELIGION")) {
+                        setReligion(effect2);
+                    } else if (param2.equals("ARMY")) {
+                        setArmy(effect2);
+                    }
+                }
+            } else {
+//            System.out.println("Нажата кнопка 2");
+                System.out.println(param1 + " " + param2 + " | " + effect1 + " " + effect2);
+                if (param1.equals(param2)) {
+                    if (param1.equals("SOCIETY")) {
+                        setSociety(effect2);
+                    } else if (param1.equals("RELIGION")) {
+                        setReligion(effect2);
+                    } else if (param1.equals("ARMY")) {
+                        setArmy(effect2);
+                    }
+                } else {
+                    int eff1 = -effect1;
+                    int eff2 = -effect2;
+                    if (param1.equals("SOCIETY")) {
+                        setSociety(eff1);
+                    } else if (param1.equals("RELIGION")) {
+                        setReligion(eff1);
+                    } else if (param1.equals("ARMY")) {
+                        setArmy(eff1);
+                    }
+                    if (param2.equals("SOCIETY")) {
+                        setSociety(eff2);
+                    } else if (param2.equals("RELIGION")) {
+                        setReligion(eff2);
+                    } else if (param2.equals("ARMY")) {
+                        setArmy(eff2);
+                    }
+                }
+            }
+
+            if (!uniqkey.equals("NULL")) {
+                if (!selectactiv.equals("NULL")) {
+                    if ((((Control) actionEvent.getSource()).getId().equals("btnselect1")) && (toInt(selectactiv) == 1)) {
+                        if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
+                            bodyInterface(Quest.getEventUnique(uniqkey, order));
+                        }
+                    } else if ((((Control) actionEvent.getSource()).getId().equals("btnselect2")) && (toInt(selectactiv) == 2)) {
+                        if (!Quest.getEventUnique(uniqkey, order)[0].equals("NULL")) {
+                            bodyInterface(Quest.getEventUnique(uniqkey, order));
+                        }
+                    } else {
+                        startGame();
+                    }
+                } else {
+                    startGame();
                 }
             } else {
                 startGame();
             }
-        } else {
-            startGame();
+
         }
 
     }
@@ -347,15 +383,90 @@ public class MainController extends Controller {
 
     }
 
-    public void outTextQuest(String str) throws InterruptedException {
-        while (true) {
-            if (str.contains("$KING")) {
-               str = str.replace("$KING", Controller.KING_NAME);
-            } else break;
+    public void tutorialGame() throws InterruptedException {
+
+        String masInput[] = StoryQuest.getTutorialEvent(iner_tutorial);
+        btnselect1.setDisable(true);
+        btnselect2.setDisable(true);
+
+        if (iner_tutorial==0) {
+            blackscreen.setVisible(true);
+            panequest.toFront();
+            btnselect1.toFront();
+            btnselect2.toFront();
+            Animation.blackScreenAnimation(blackscreen);
+        } else if (iner_tutorial==3) {
+            sliderrel.toFront();
+            labelrel.toFront();
+            namerel.toFront();
+            blackrel.setVisible(true);
+            Animation.whiteScreenAnimation(blackrel);
+        } else if (iner_tutorial==6) {
+            Animation.reverseWhiteScreenAnimation(blackrel);
+            sliderrel.toBack();
+            labelrel.toBack();
+            namerel.toBack();
+            sliderarm.toFront();
+            labelarm.toFront();
+            namearm.toFront();
+            blackarm.setVisible(true);
+            Animation.whiteScreenAnimation(blackarm);
+        } else if (iner_tutorial==8) {
+            Animation.reverseWhiteScreenAnimation(blackarm);
+            sliderarm.toBack();
+            labelarm.toBack();
+            namearm.toBack();
+            slidersoc.toFront();
+            labelsoc.toFront();
+            namesoc.toFront();
+            blacksoc.setVisible(true);
+            Animation.whiteScreenAnimation(blacksoc);
+        } else if (iner_tutorial==9) {
+            Animation.reverseWhiteScreenAnimation(blacksoc);
+            slidersoc.toBack();
+            labelsoc.toBack();
+            namesoc.toBack();
         }
+
+
+        // СОВЕТНИК
+
+        if (masInput[0].equals("DEFAULT")) {
+            advisor = Controller.ADVISOR;
+        } else {
+            advisor = masInput[0];
+        }
+        labelname.setText(advisor);
+
+        // ОПИСАНИЕ
+
+//        System.out.println(masInput[1]);
+        outTextQuest(masInput[1]);
+
+        // ВЫБОРЫ
+
+        select1 = masInput[2];
+        btnselect1.setText(select1);
+        select2 = masInput[3];
+        btnselect2.setText(select2);
+
+        iner_tutorial++;
+        if (iner_tutorial==12) {
+            iner_tutorial=0;
+            mode = Mode.SKIP;
+        }
+    }
+
+    public void outTextQuest(String str) throws InterruptedException {
+
         while (true) {
             if (str.contains("$KINGDOM")) {
                 str = str.replace("$KINGDOM", Controller.KINGDOM_NAME);
+            } else break;
+        }
+        while (true) {
+            if (str.contains("$KING")) {
+                str = str.replace("$KING", Controller.KING_NAME);
             } else break;
         }
 //        labelquest.setText(str);
@@ -418,6 +529,7 @@ public class MainController extends Controller {
         }
         btnselect1.setDisable(false);
         btnselect2.setDisable(false);
+        labelquest.setText(description);
     }
     public void timerSkip() {
         timerCancel();

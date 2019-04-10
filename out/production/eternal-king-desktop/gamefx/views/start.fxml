@@ -4,7 +4,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -65,7 +64,7 @@
             <Font name="Franklin Gothic Heavy" size="14.0" />
          </font>
       </Button>
-      <CheckBox layoutX="562.0" layoutY="443.0" mnemonicParsing="false" selected="true" text="пропустить обучение">
+      <CheckBox fx:id="checkbox" layoutX="562.0" layoutY="443.0" mnemonicParsing="false" selected="true" text="пропустить обучение">
          <font>
             <Font name="Franklin Gothic Heavy" size="13.0" />
          </font>

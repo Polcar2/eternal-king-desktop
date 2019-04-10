@@ -29,7 +29,7 @@ public class Controller {
     public static String DINASTY;
     public static String KINGDOM_NAME;
     public static String KINGS[][] = new String[0][3]; //имя, год_начало_правл, год_конец_правл, количество_дней
-    public static String KING_NAME = "Polcar";
+    public static String KING_NAME;
     public static String ADVISOR = "Советник";
     public static String AVATAR;
 
