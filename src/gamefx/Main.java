@@ -61,6 +61,9 @@ public class Main extends Application {
     public static void setCSS(String CSSlocal) {
         stage.getScene().getStylesheets().add("gamefx/resources/css/"+CSSlocal);
     }
+    public static void setCSS(Stage stage, String CSSlocal) {
+        stage.getScene().getStylesheets().add("gamefx/resources/css/"+CSSlocal);
+    }
 
     public static void main(String[] args) {
         launch(args);

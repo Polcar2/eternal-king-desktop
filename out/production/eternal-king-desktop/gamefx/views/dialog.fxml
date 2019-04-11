@@ -2,13 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 
-<AnchorPane prefHeight="126.0" prefWidth="195.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamefx.models.Dialog">
+<Pane prefHeight="216.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamefx.models.Dialog">
    <children>
-      <Region fx:id="reg" onMouseDragged="#paneOnMouseDragged" onMousePressed="#paneOnMousePressed" prefHeight="15.0" prefWidth="197.0" style="-fx-background-color: #00c;" />
-      <Label fx:id="dialoglabel" alignment="TOP_LEFT" layoutX="28.0" layoutY="25.0" prefHeight="54.0" prefWidth="144.0" text="Description" />
-      <Button fx:id="btn" layoutX="137.0" layoutY="3.0" mnemonicParsing="false" onAction="#exit" text="закрыть" />
+      <ImageView fitHeight="216.0" fitWidth="529.0" pickOnBounds="true">
+         <image>
+            <Image url="@../resources/images/logo_empty.jpg" />
+         </image>
+      </ImageView>
+      <Region fx:id="reg" onMouseDragged="#paneOnMouseDragged" onMousePressed="#paneOnMousePressed" prefHeight="25.0" prefWidth="529.0" style="-fx-background-color: #00c;" />
+      <Region layoutX="11.0" layoutY="31.0" opacity="0.8" prefHeight="136.0" prefWidth="507.0" style="-fx-background-color: #ffdede;" />
+      <Label fx:id="dialoglabel" alignment="TOP_LEFT" layoutX="25.0" layoutY="39.0" prefHeight="120.0" prefWidth="481.0" text="Description" wrapText="true" />
+      <Button fx:id="btn" layoutX="248.0" layoutY="177.0" mnemonicParsing="false" onAction="#exit" text="OK" />
    </children>
-</AnchorPane>
+</Pane>

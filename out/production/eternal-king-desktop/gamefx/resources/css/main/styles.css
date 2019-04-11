@@ -16,6 +16,14 @@ Button {
     -fx-pref-height: 15px;
     -fx-background-radius: 8px;
 }
+
+#imageregion {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 5px;
+}
 /*#slider1:disabled .thumb {*/
     /*-fx-background-color: #fff;*/
 /*}*/

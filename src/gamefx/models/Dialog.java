@@ -1,5 +1,6 @@
 package gamefx.models;
 
+import gamefx.GLOBAL;
 import gamefx.controllers.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,9 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import static gamefx.Main.setCSS;
 
 public class Dialog {
 
@@ -25,27 +29,28 @@ public class Dialog {
     public double yOffset;
     public Stage stage;
 
-
     public void initialize() throws Exception {
-        System.out.println("LOAD DIALOG"+" ++ "+sr);
-//        create();
-//        changeText(sr);
+        System.out.println("INIT DIALOG");
+        dialoglabel.setText(GLOBAL.TEXT_DIALOG);
     }
 
 
     public void create() throws Exception {
-        System.out.println("CREATE DIALOG"+" ++ "+sr);
+        System.out.println("CREATE DIALOG");
         Stage form2 = new Stage();
-        AnchorPane root = FXMLLoader.load(getClass().getResource("../views/dialog.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../views/dialog.fxml"));
+        root.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         form2.setTitle("Диалоговое окно");
-        Scene scene = new Scene(root, 195, 126);
+        Scene scene = new Scene(root, 529, 216);
+        scene.setFill(Color.TRANSPARENT);
         form2.setScene(scene);
+        setCSS(form2, "dialogs/dialog/styles.css");
         form2.setResizable(false);
         form2.initStyle(StageStyle.TRANSPARENT);
         form2.initModality(Modality.APPLICATION_MODAL);
         form2.show();
 //        com.sun.glass.ui.Window.getWindows().get(1).setUndecoratedMoveRectangle(22);
-        System.out.println("DONE DIALOG"+" ++ "+sr);
+        System.out.println("DONE DIALOG");
 //        scene.addEventFilter(MouseEvent.ANY, event ->{ // перемещение окна за что угодно
 //            if(event.getEventType() == MouseEvent.MOUSE_PRESSED) {
 //                xOffset = form2.getX() - event.getScreenX();
@@ -70,10 +75,6 @@ public class Dialog {
 //        });
     }
 
-    public void changeText(String str) {
-        System.out.println(str);
-        dialoglabel.setText(str);
-    }
 
     public void exit() {
         Stage Form = (Stage) btn.getScene().getWindow();

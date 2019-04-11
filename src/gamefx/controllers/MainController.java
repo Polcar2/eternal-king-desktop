@@ -4,20 +4,24 @@ import gamefx.Controller;
 import gamefx.GLOBAL;
 import gamefx.Main;
 import gamefx.models.*;
+import gamefx.models.Dialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import gamefx.models.Quest.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
+import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +50,9 @@ public class MainController extends Controller {
     @FXML public Label namerel;
     @FXML public Label namearm;
     @FXML public Label namesoc;
+    @FXML public Label kingdomname;
+    @FXML public Label dinastyname;
+    @FXML public ImageView kingicon;
 
     public Timer timer;
 
@@ -148,6 +155,41 @@ public class MainController extends Controller {
         labelarm.setText(String.valueOf((int)Controller.ARMY));
         labelsoc.setText(String.valueOf((int)Controller.SOCIETY));
 
+        kingdomname.setText(Controller.KINGDOM_NAME);
+        dinastyname.setText(Controller.DINASTY);
+        if (Controller.AVATAR.equals("ICON_1")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_03.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_2")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_05.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_3")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_07.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_4")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_09.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_5")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_11.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_6")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_13.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_7")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_14.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_8")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_16.png");
+            kingicon.setImage(image);
+        } else if (Controller.AVATAR.equals("ICON_9")) {
+            Image image = new Image("gamefx/resources/images/icons/kings_icon_18.png");
+            kingicon.setImage(image);
+        }
+        Tooltip kn_tooltip = new Tooltip(Controller.KING_NAME);
+//        hackTooltipStartTiming(kn_tooltip);
+//        Tooltip.install(kingicon, kn_tooltip);
+        bindTooltip(kingicon, kn_tooltip);
+
 //        String masInput[] = Quest.getEvent(2);
 //
 //
@@ -165,13 +207,80 @@ public class MainController extends Controller {
             tutorialGame();
         } else {
             startGame();
-            Dialog dialog = new Dialog();
-            try {
-                dialog.create();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            Dialog dialog = new Dialog();
+//            try {
+//                dialog.create();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            HeroesHistory hh = new HeroesHistory();
+//            try {
+//                hh.create();
+//                testlabel.setText(GLOBAL.fg);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            Platform.runLater(() -> {
+                Dialog dialog = new Dialog();
+                GLOBAL.TEXT_DIALOG = "    Приветствуем вас, "+Controller.KING_NAME+"! Ваше королевство процветает и нуждается в Вас. Помните, каждое Ваше решение влияет на Вас и Ваше королевство. \n\n    Если вы новичок, то рекомендуется пройти обучение, выбрав соответствующий пункт при старте новой игры.";
+                try {
+                    dialog.create();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                if (GLOBAL.fg.equals("sss")) { // отработка после
+//                    try {
+//                        startGame();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+            });
+
         }
+    }
+
+    public static void hackTooltipStartTiming(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(100)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void bindTooltip(final Node node, final Tooltip tooltip){
+        node.setOnMouseMoved(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                // +15 moves the tooltip 15 pixels below the mouse cursor;
+                // if you don't change the y coordinate of the tooltip, you
+                // will see constant screen flicker
+                tooltip.hide();
+                tooltip.show(node, event.getScreenX(), event.getScreenY() + 15);
+
+            }
+        });
+        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tooltip.show(node, event.getScreenX(), event.getScreenY() + 15);
+            }
+        });
+        node.setOnMouseExited(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event){
+                tooltip.hide();
+            }
+        });
     }
 
     public void dayIterationBegin() throws InterruptedException {
@@ -280,6 +389,7 @@ public class MainController extends Controller {
 
         order = toInt(masInput[10]);
 
+
     }
 
     public void actionButton(ActionEvent actionEvent) throws InterruptedException {
@@ -380,7 +490,6 @@ public class MainController extends Controller {
 
     public void startGame() throws InterruptedException {
         dayIterationBegin();
-
     }
 
     public void tutorialGame() throws InterruptedException {
@@ -496,6 +605,16 @@ public class MainController extends Controller {
         };
         timer.schedule(task, 0, 30);
 
+    }
+
+    public void showHistoryWindow() {
+        HeroesHistory hh = new HeroesHistory();
+            try {
+                hh.create();
+//                testlabel.setText(GLOBAL.fg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public void timerStart() {
